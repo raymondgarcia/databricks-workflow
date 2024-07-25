@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: databricks/setup-cli@main
-      - run: databricks bundle run my-job
+      - run: databricks bundle run my_job
         working-directory: .
         env:
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
