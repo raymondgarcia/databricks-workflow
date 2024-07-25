@@ -2,7 +2,7 @@
 resources:
   jobs:
     my_project_job:
-      name: my_project_job
+      name: my_project_job_2
 
       schedule:
         # Run every day at 8:37 AM
