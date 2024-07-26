@@ -8,6 +8,18 @@ on:
       - staging
 
 jobs:
+  destroy:
+    name: "Destroy staging"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: databricks/setup-cli@main
+      - run: databricks bundle destroy
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: staging
   deploy:
     name: "Deploy to staging"
     runs-on: ubuntu-latest
