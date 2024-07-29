@@ -28,7 +28,7 @@ targets:
   # The 'staging' target, used for staging deployment.
   staging:
     # We use 'mode: staging' to indicate this is a staging deployment.
-    mode: development
+    mode: production
     workspace:
       host: https://dbc-cb31f9d7-063d.cloud.databricks.com
       # We use a specific path for staging resources.
