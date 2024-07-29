@@ -50,3 +50,8 @@ jobs:
         env:
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
           DATABRICKS_BUNDLE_ENV: staging
+      - run: nohup databricks bundle run DENG_staging_brightdata_facebook_s3_to_kafka &
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: staging
