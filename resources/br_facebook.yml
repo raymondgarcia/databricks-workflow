@@ -1,7 +1,7 @@
 resources:
   jobs:
-    DENG_staging_brightdata_tiktok_s3_to_kafka:
-      name: DENG_staging_brightdata_tiktok_s3_to_kafka
+    DENG_staging_brightdata_facebook_s3_to_kafka:
+      name: "DENG_staging_brightdata_facebook_s3_to_kafka "
       email_notifications:
         on_failure:
           - datadog---platform-email.51efbfci@zignallabs.pagerduty.com
@@ -12,7 +12,7 @@ resources:
           notebook_task:
             notebook_path: /Repos/staging/databricks-ingestion/notebooks/brightdata_s3_to_kafka
             base_parameters:
-              source: tiktok
+              source: facebook
             source: WORKSPACE
           existing_cluster_id: 0312-210113-v7llbjwv
           libraries:
@@ -20,7 +20,7 @@ resources:
                 coordinates: net.debasishg:redisclient_2.12:3.42
             - jar: s3://zignal-usdi-staging/jars/scaladog_2.12-0.5.4-assembly.jar
       job_clusters:
-        - job_cluster_key: DENG_prod_brightdata_tiktok_s3_to_kafka
+        - job_cluster_key: DENG_staging_brightdata_facebook_s3_to_kafka
           new_cluster:
             cluster_name: ""
             spark_version: 14.2.x-scala2.12
@@ -52,4 +52,4 @@ resources:
         env: staging
         ingestion: ""
         provider: brightdata
-        source: tiktok
+        source: facebook

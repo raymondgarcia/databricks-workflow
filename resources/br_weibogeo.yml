@@ -1,18 +1,15 @@
 resources:
   jobs:
-    DENG_staging_brightdata_tiktok_s3_to_kafka:
-      name: DENG_staging_brightdata_tiktok_s3_to_kafka
-      email_notifications:
-        on_failure:
-          - datadog---platform-email.51efbfci@zignallabs.pagerduty.com
+    DENG_staging_brightdata_weibogeo_s3_to_kafka:
+      name: DENG_staging_brightdata_weibogeo_s3_to_kafka
       notification_settings:
         no_alert_for_canceled_runs: true
       tasks:
-        - task_key: DENG_staging_brightdata_tiktok_s3_to_kafka
+        - task_key: DENG_brightdata_weibogeo_s3_to_kafka_staging
           notebook_task:
             notebook_path: /Repos/staging/databricks-ingestion/notebooks/brightdata_s3_to_kafka
             base_parameters:
-              source: tiktok
+              source: weibo-geo
             source: WORKSPACE
           existing_cluster_id: 0312-210113-v7llbjwv
           libraries:
@@ -20,7 +17,7 @@ resources:
                 coordinates: net.debasishg:redisclient_2.12:3.42
             - jar: s3://zignal-usdi-staging/jars/scaladog_2.12-0.5.4-assembly.jar
       job_clusters:
-        - job_cluster_key: DENG_prod_brightdata_tiktok_s3_to_kafka
+        - job_cluster_key: DENG_brightdata_weibogeo_s3_to_kafka_staging
           new_cluster:
             cluster_name: ""
             spark_version: 14.2.x-scala2.12
@@ -34,22 +31,21 @@ resources:
               zone_id: us-east-1a
               instance_profile_arn: arn:aws:iam::490115705060:instance-profile/zignal-databricks
               spot_bid_price_percent: 100
-              ebs_volume_count: 0
             node_type_id: i3.xlarge
             custom_tags:
               role: databricks-ingestion
               environment: staging
               team: deng
-              category: enrichment
+              category: ingestion
               owner: deng
             spark_env_vars:
               ENVIRONMENT: staging
             enable_elastic_disk: true
             data_security_mode: LEGACY_SINGLE_USER_STANDARD
             runtime_engine: STANDARD
-            num_workers: 2
+            num_workers: 8
       tags:
         env: staging
         ingestion: ""
         provider: brightdata
-        source: tiktok
+        source: weibo

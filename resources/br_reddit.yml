@@ -1,18 +1,18 @@
 resources:
   jobs:
-    DENG_staging_brightdata_tiktok_s3_to_kafka:
-      name: DENG_staging_brightdata_tiktok_s3_to_kafka
+    DENG_staging_brightdata_reddit_s3_to_kafka:
+      name: DENG_staging_brightdata_reddit_s3_to_kafka
       email_notifications:
         on_failure:
           - datadog---platform-email.51efbfci@zignallabs.pagerduty.com
       notification_settings:
         no_alert_for_canceled_runs: true
       tasks:
-        - task_key: DENG_staging_brightdata_tiktok_s3_to_kafka
+        - task_key: DENG_staging_brightdata_reddit_s3_to_kafka
           notebook_task:
-            notebook_path: /Repos/staging/databricks-ingestion/notebooks/brightdata_s3_to_kafka
+            notebook_path: /Repos/prod/databricks-ingestion/notebooks/brightdata_s3_to_kafka
             base_parameters:
-              source: tiktok
+              source: reddit
             source: WORKSPACE
           existing_cluster_id: 0312-210113-v7llbjwv
           libraries:
@@ -20,7 +20,7 @@ resources:
                 coordinates: net.debasishg:redisclient_2.12:3.42
             - jar: s3://zignal-usdi-staging/jars/scaladog_2.12-0.5.4-assembly.jar
       job_clusters:
-        - job_cluster_key: DENG_prod_brightdata_tiktok_s3_to_kafka
+        - job_cluster_key: DENG_prod_brightdata_telegram_s3_to_kafka
           new_cluster:
             cluster_name: ""
             spark_version: 14.2.x-scala2.12
@@ -38,12 +38,12 @@ resources:
             node_type_id: i3.xlarge
             custom_tags:
               role: databricks-ingestion
-              environment: staging
+              environment: prod
               team: deng
               category: enrichment
               owner: deng
             spark_env_vars:
-              ENVIRONMENT: staging
+              ENVIRONMENT: prod
             enable_elastic_disk: true
             data_security_mode: LEGACY_SINGLE_USER_STANDARD
             runtime_engine: STANDARD
@@ -52,4 +52,4 @@ resources:
         env: staging
         ingestion: ""
         provider: brightdata
-        source: tiktok
+        source: reddit

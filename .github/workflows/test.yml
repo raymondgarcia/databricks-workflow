@@ -50,7 +50,72 @@ jobs:
         env:
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
           DATABRICKS_BUNDLE_ENV: staging
-      - run: nohup databricks bundle run DENG_prod_brightdata_tiktok_s3_to_kafka_test &
+      - run: nohup databricks bundle run DENG_staging_brightdata_facebook_s3_to_kafka &
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: staging
+      - run: nohup databricks bundle run DENG_staging_brightdata_instagram_s3_to_kafka &
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: staging
+      - run: nohup databricks bundle run DENG_staging_brightdata_mastodon_s3_to_kafka &
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: staging
+      - run: nohup databricks bundle run DENG_staging_brightdata_okru_s3_to_kafka &
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: staging
+      - run: nohup databricks bundle run DENG_staging_brightdata_reddit_s3_to_kafka &
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: staging
+      - run: nohup databricks bundle run DENG_staging_brightdata_telegram_s3_to_kafka &
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: staging
+      - run: nohup databricks bundle run DENG_staging_brightdata_threadsreplies_s3_to_kafka &
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: staging
+      - run: nohup databricks bundle run DENG_staging_brightdata_threadsreposts_s3_to_kafka &
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: staging
+      - run: nohup databricks bundle run DENG_staging_brightdata_threadsthreads_s3_to_kafka &
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: staging
+      - run: nohup databricks bundle run DENG_staging_brightdata_tiktok_s3_to_kafka &
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: staging
+      - run: nohup databricks bundle run DENG_staging_brightdata_truthsocial_s3_to_kafka &
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: staging
+      - run: nohup databricks bundle run DENG_staging_brightdata_weiboauthors_s3_to_kafka &
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: staging
+      - run: nohup databricks bundle run DENG_staging_brightdata_weibogeo_s3_to_kafka &
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: staging
+      - run: nohup databricks bundle run DENG_staging_brightdata_weibokeywords_s3_to_kafka &
         working-directory: .
         env:
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
