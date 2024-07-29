@@ -32,11 +32,11 @@ targets:
     workspace:
       host: https://dbc-cb31f9d7-063d.cloud.databricks.com
       # We use a specific path for staging resources.
-      root_path: /Users/raymond.garcia@zignallabs.com/.bundle/${bundle.name}/${bundle.target}
+      root_path: /Users/platform@zignallabs.com/.bundle/${bundle.name}/${bundle.target}
     run_as:
       # This runs as raymond.garcia@zignallabs.com in staging. We could also use a service principal here,
       # see https://docs.databricks.com/dev-tools/bundles/permissions.html.
-      user_name: raymond.garcia@zignallabs.com
+      user_name: platform@zignallabs.com
 
   # The 'prod' target, used for production deployment.
   prod:
@@ -47,8 +47,8 @@ targets:
       host: https://dbc-cb31f9d7-063d.cloud.databricks.com
       # We always use /Users/raymond.garcia@zignallabs.com for all resources to make sure we only have a single copy.
       # If this path results in an error, please make sure you have a recent version of the CLI installed.
-      root_path: /Users/raymond.garcia@zignallabs.com/.bundle/${bundle.name}/${bundle.target}
+      root_path: /Users/platform@zignallabs.com/.bundle/${bundle.name}/${bundle.target}
     run_as:
       # This runs as raymond.garcia@zignallabs.com in production. We could also use a service principal here,
       # see https://docs.databricks.com/dev-tools/bundles/permissions.html.
-      user_name: raymond.garcia@zignallabs.com
+      user_name: platform@zignallabs.com
