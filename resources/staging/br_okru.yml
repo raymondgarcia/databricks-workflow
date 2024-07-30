@@ -14,7 +14,7 @@ resources:
             base_parameters:
               source: okru
             source: WORKSPACE
-          existing_cluster_id: 0312-210113-v7llbjwv
+          existing_cluster_id: ${var.cluster_id}
           libraries:
             - maven:
                 coordinates: net.debasishg:redisclient_2.12:3.42
