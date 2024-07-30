@@ -1,4 +1,4 @@
-name: "Test Python"
+name: "Test Python Prod"
 
 concurrency: "1"
 
@@ -19,7 +19,7 @@ jobs:
         working-directory: .
         env:
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-          DATABRICKS_BUNDLE_ENV: staging
+          DATABRICKS_BUNDLE_ENV: prod
   deploy:
     name: "Deploy to Prod"
     runs-on: ubuntu-latest
@@ -34,7 +34,7 @@ jobs:
         working-directory: .
         env:
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-          DATABRICKS_BUNDLE_ENV: staging
+          DATABRICKS_BUNDLE_ENV: prod
   pipeline_update:
     name: "Run Update pipeline"
     runs-on: ubuntu-latest
