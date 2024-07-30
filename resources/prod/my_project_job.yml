@@ -1,8 +1,8 @@
 # The main job for my_project.
 resources:
   jobs:
-    my_project_job:
-      name: dummy_name
+    my_project_job_1:
+      name: dummy_name1
 
       schedule:
         # Run every day at 8:37 AM
