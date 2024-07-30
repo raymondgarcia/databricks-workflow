@@ -1,0 +1,83 @@
+# This is a Databricks asset bundle definition for my_project.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: my_prod_deployment
+
+include:
+  - resources/*.yml
+
+variables:
+  my_cluster:
+    description: "The cluster to use for the job"
+    type: complex
+    default:
+      cluster_name: ""
+      spark_version: 14.2.x-scala2.12
+      spark_conf:
+        spark.sql.datetime.java8API.enabled: "true"
+        spark.sql.streaming.metricsEnabled: "true"
+        spark.databricks.delta.schema.autoMerge.enabled: "true"
+      aws_attributes:
+        first_on_demand: 1
+        availability: SPOT_WITH_FALLBACK
+        zone_id: us-east-1a
+        instance_profile_arn: arn:aws:iam::490115705060:instance-profile/zignal-databricks
+        spot_bid_price_percent: 100
+        ebs_volume_count: 0
+      node_type_id: i3.xlarge
+      custom_tags:
+        role: databricks-ingestion
+        environment: staging
+        team: deng
+        category: enrichment
+        owner: deng
+      spark_env_vars:
+        ENVIRONMENT: staging
+      enable_elastic_disk: true
+      data_security_mode: LEGACY_SINGLE_USER_STANDARD
+      runtime_engine: STANDARD
+      num_workers: 8
+  cluster_id:
+    description: "The cluster ID to use for the job"
+    type: string
+    default: "0312-210113-v7llbjwv"
+
+
+targets:
+  # The 'dev' target, for development purposes. This target is the default.
+  dev:
+    # We use 'mode: development' to indicate this is a personal development copy:
+    # - Deployed resources get prefixed with '[dev my_user_name]'
+    # - Any job schedules and triggers are paused by default
+    # - The 'development' mode is used for Delta Live Tables pipelines
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-cb31f9d7-063d.cloud.databricks.com
+
+
+  staging:
+    mode: production
+    workspace:
+      host: https://dbc-cb31f9d7-063d.cloud.databricks.com
+      # We use a specific path for staging resources.
+      root_path: /Users/platform@zignallabs.com/.bundle/${bundle.name}/${bundle.target}
+    run_as:
+      # This runs as raymond.garcia@zignallabs.com in staging. We could also use a service principal here,
+      # see https://docs.databricks.com/dev-tools/bundles/permissions.html.
+      user_name: platform@zignallabs.com
+
+  # The 'prod' target, used for production deployment.
+  prod:
+    # We use 'mode: production' to indicate this is a production deployment.
+    # Doing so enables strict verification of the settings below.
+    mode: production
+    workspace:
+      host: https://dbc-cb31f9d7-063d.cloud.databricks.com
+      # We always use /Users/raymond.garcia@zignallabs.com for all resources to make sure we only have a single copy.
+      # If this path results in an error, please make sure you have a recent version of the CLI installed.
+      root_path: /Users/platform@zignallabs.com/.bundle/${bundle.name}/${bundle.target}
+    run_as:
+      # This runs as raymond.garcia@zignallabs.com in production. We could also use a service principal here,
+      # see https://docs.databricks.com/dev-tools/bundles/permissions.html.
+      user_name: platform@zignallabs.com
