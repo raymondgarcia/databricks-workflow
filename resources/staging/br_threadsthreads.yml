@@ -12,7 +12,7 @@ resources:
             base_parameters:
               source: threads-threads
             source: WORKSPACE
-          existing_cluster_id: 0312-210113-v7llbjwv
+          existing_cluster_id: ${var.cluster_id}
           libraries:
             - jar: s3://zignal-usdi-staging/jars/scaladog_2.12-0.5.4-assembly.jar
             - maven:

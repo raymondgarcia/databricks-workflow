@@ -6,6 +6,43 @@ bundle:
 include:
   - resources/dev/*.yml
 
+variables:
+  my_cluster:
+    description: "The cluster to use for the job"
+    type: complex
+    default:
+      cluster_name: ""
+      spark_version: 14.2.x-scala2.12
+      spark_conf:
+        spark.sql.datetime.java8API.enabled: "true"
+        spark.sql.streaming.metricsEnabled: "true"
+        spark.databricks.delta.schema.autoMerge.enabled: "true"
+      aws_attributes:
+        first_on_demand: 1
+        availability: SPOT_WITH_FALLBACK
+        zone_id: us-east-1a
+        instance_profile_arn: arn:aws:iam::490115705060:instance-profile/zignal-databricks
+        spot_bid_price_percent: 100
+        ebs_volume_count: 0
+      node_type_id: i3.xlarge
+      custom_tags:
+        role: databricks-ingestion
+        environment: staging
+        team: deng
+        category: enrichment
+        owner: deng
+      spark_env_vars:
+        ENVIRONMENT: staging
+      enable_elastic_disk: true
+      data_security_mode: LEGACY_SINGLE_USER_STANDARD
+      runtime_engine: STANDARD
+      num_workers: 8
+  cluster_id:
+    description: "The cluster ID to use for the job"
+    type: string
+    default: " 0312-210113-v7llbjwv"
+
+
 targets:
   # The 'dev' target, for development purposes. This target is the default.
   dev:
@@ -18,14 +55,7 @@ targets:
     workspace:
       host: https://dbc-cb31f9d7-063d.cloud.databricks.com
 
-  ## Optionally, there could be a 'staging' target here.
-  ## (See Databricks docs on CI/CD at https://docs.databricks.com/dev-tools/bundles/ci-cd.html.)
-  #
-  # staging:
-  #   workspace:
-  #     host: https://dbc-cb31f9d7-063d.cloud.databricks.com
 
-  # The 'staging' target, used for staging deployment.
   staging:
     mode: production
     workspace:
