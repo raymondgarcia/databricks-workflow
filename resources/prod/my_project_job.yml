@@ -22,3 +22,9 @@ resources:
       job_clusters:
         - job_cluster_key: job_cluster
           new_cluster: ${var.my_cluster}
+
+      tags:
+        env: prod
+        ingestion: ""
+        provider: myself
+        source: my_home
