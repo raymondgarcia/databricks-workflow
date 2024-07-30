@@ -43,7 +43,7 @@ resources:
         - task_key: notebook_task
           job_cluster_key: job_cluster
           notebook_task:
-            notebook_path: /Workspace/Users/platform@zignallabs.com/deploy
+            notebook_path: /Workspace/Users/platform@zignallabs.com/HelloWorld
 
       job_clusters:
         - job_cluster_key: job_cluster
