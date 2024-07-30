@@ -4,7 +4,7 @@ bundle:
   name: my_project_job
 
 include:
-  - resources/*.yml
+  - resources/*/*.yml
 
 variables:
   my_cluster:
@@ -40,7 +40,7 @@ variables:
   cluster_id:
     description: "The cluster ID to use for the job"
     type: string
-    default: " 0312-210113-v7llbjwv"
+    default: "0312-210113-v7llbjwv"
 
 
 targets:
