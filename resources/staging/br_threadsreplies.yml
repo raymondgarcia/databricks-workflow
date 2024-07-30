@@ -1,0 +1,24 @@
+resources:
+  jobs:
+    DENG_staging_brightdata_threadsreplies_s3_to_kafka:
+      name: DENG_staging_brightdata_threadsreplies_s3_to_kafka
+      email_notifications:
+        on_failure:
+          - datadog---platform-email.51efbfci@zignallabs.pagerduty.com
+      tasks:
+        - task_key: threads_replies_staging
+          notebook_task:
+            notebook_path: /Repos/staging/databricks-ingestion/notebooks/brightdata_s3_to_kafka
+            base_parameters:
+              source: threads-replies
+            source: WORKSPACE
+          existing_cluster_id: 0312-210113-v7llbjwv
+          libraries:
+            - jar: s3://zignal-usdi-staging/jars/scaladog_2.12-0.5.4-assembly.jar
+            - maven:
+                coordinates: net.debasishg:redisclient_2.12:3.42
+      tags:
+        env: staging
+        ingestion: ""
+        provider: brightdata
+        source: threads

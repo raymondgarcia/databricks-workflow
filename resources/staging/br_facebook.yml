@@ -1,0 +1,55 @@
+resources:
+  jobs:
+    DENG_staging_brightdata_facebook_s3_to_kafka:
+      name: "DENG_staging_brightdata_facebook_s3_to_kafka "
+      email_notifications:
+        on_failure:
+          - datadog---platform-email.51efbfci@zignallabs.pagerduty.com
+      notification_settings:
+        no_alert_for_canceled_runs: true
+      tasks:
+        - task_key: DENG_staging_brightdata_tiktok_s3_to_kafka
+          notebook_task:
+            notebook_path: /Repos/staging/databricks-ingestion/notebooks/brightdata_s3_to_kafka
+            base_parameters:
+              source: facebook
+            source: WORKSPACE
+          existing_cluster_id: 0312-210113-v7llbjwv
+          libraries:
+            - maven:
+                coordinates: net.debasishg:redisclient_2.12:3.42
+            - jar: s3://zignal-usdi-staging/jars/scaladog_2.12-0.5.4-assembly.jar
+      job_clusters:
+        - job_cluster_key: DENG_staging_brightdata_facebook_s3_to_kafka
+          new_cluster:
+            cluster_name: ""
+            spark_version: 14.2.x-scala2.12
+            spark_conf:
+              spark.sql.datetime.java8API.enabled: "true"
+              spark.sql.streaming.metricsEnabled: "true"
+              spark.databricks.delta.schema.autoMerge.enabled: "true"
+            aws_attributes:
+              first_on_demand: 1
+              availability: SPOT_WITH_FALLBACK
+              zone_id: us-east-1a
+              instance_profile_arn: arn:aws:iam::490115705060:instance-profile/zignal-databricks
+              spot_bid_price_percent: 100
+              ebs_volume_count: 0
+            node_type_id: i3.xlarge
+            custom_tags:
+              role: databricks-ingestion
+              environment: staging
+              team: deng
+              category: enrichment
+              owner: deng
+            spark_env_vars:
+              ENVIRONMENT: staging
+            enable_elastic_disk: true
+            data_security_mode: LEGACY_SINGLE_USER_STANDARD
+            runtime_engine: STANDARD
+            num_workers: 2
+      tags:
+        env: staging
+        ingestion: ""
+        provider: brightdata
+        source: facebook
